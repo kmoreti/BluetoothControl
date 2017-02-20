@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_control"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorBody"
+    tools:context="com.example.kmoreti.bluetoothcontrol.MainControl">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth Control"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/buttonDisconnect"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/round_button"
+        android:drawableBottom="@drawable/disconnect"/>
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonDown"
+        android:background="@drawable/round_button"
+        android:drawableBottom="@drawable/down"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/buttonDisconnect"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_marginEnd="10dp" />
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonUp"
+        android:background="@drawable/round_button"
+        android:drawableTop="@drawable/up"
+        android:layout_marginBottom="22dp"
+        android:layout_above="@+id/buttonLeft"
+        android:layout_alignStart="@+id/buttonDown" />
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonRight"
+        android:background="@drawable/round_button"
+        android:drawableBottom="@drawable/right"
+        android:layout_alignBaseline="@+id/buttonLeft"
+        android:layout_alignBottom="@+id/buttonLeft"
+        android:layout_alignStart="@+id/buttonDisconnect"
+        android:layout_marginStart="9dp" />
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonLeft"
+        android:background="@drawable/round_button"
+        android:drawableBottom="@drawable/left"
+        android:layout_marginEnd="18dp"
+        android:layout_alignBaseline="@+id/buttonDown"
+        android:layout_alignBottom="@+id/buttonDown"
+        android:layout_toStartOf="@+id/buttonDisconnect" />
+
+</RelativeLayout>
