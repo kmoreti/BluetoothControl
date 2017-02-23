@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorTop">#004D40</color>-->
+    <!--<color name="colorBar">#00695C</color>-->
+    <!--<color name="colorBody">#00796B</color>-->
+    <!--<color name="colorText">#FFFFFF</color>-->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorTop">#004D40</color>
-    <color name="colorBar">#00695C</color>
-    <color name="colorBody">#00796B</color>
+    <color name="colorTop">#0D47A1</color>
+    <color name="colorBar">#0D47A1</color>
+    <color name="colorBody">#BBDEFB</color>
     <color name="colorText">#FFFFFF</color>
 </resources>

@@ -12,6 +12,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.os.AsyncTask;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.UUID;
 
 public class MainControl extends Activity {
@@ -25,6 +26,9 @@ public class MainControl extends Activity {
     private boolean isBtConnected = false;
     //SPP UUID. Look for it
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    ConnectBT connectBT = null;
+
+    private static final String CONNECTION = "connection";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,34 +47,40 @@ public class MainControl extends Activity {
         btnRight = (Button) findViewById(R.id.buttonRight);
         btnDis = (Button) findViewById(R.id.buttonDisconnect);
 
-        new ConnectBT().execute(); //Call the class to connect
+        if (savedInstanceState == null) {
+            connectBT = new ConnectBT();
+            connectBT.execute(); //Call the class to connect
+        } else {
+            connectBT = (ConnectBT) savedInstanceState.getSerializable(CONNECTION);
+            btSocket = connectBT.socket;
+        }
 
         //commands to be sent to bluetooth
         btnUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                turnUp();      //method to turn on
+                turnUp();      //method to turn up
             }
         });
 
         btnDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                turnDown();   //method to turn off
+                turnDown();   //method to turn down
             }
         });
 
         btnLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                turnLeft();   //method to turn off
+                turnLeft();   //method to turn left
             }
         });
 
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                turnRight();   //method to turn off
+                turnRight();   //method to turn right
             }
         });
 
@@ -98,7 +108,7 @@ public class MainControl extends Activity {
     private void turnUp() {
         if (btSocket != null) {
             try {
-                btSocket.getOutputStream().write("UP".toString().getBytes());
+                btSocket.getOutputStream().write(0);
             } catch (IOException e) {
                 msg("Error");
             }
@@ -108,7 +118,7 @@ public class MainControl extends Activity {
     private void turnDown() {
         if (btSocket != null) {
             try {
-                btSocket.getOutputStream().write("DOWN".toString().getBytes());
+                btSocket.getOutputStream().write(1);
             } catch (IOException e) {
                 msg("Error");
             }
@@ -118,7 +128,7 @@ public class MainControl extends Activity {
     private void turnLeft() {
         if (btSocket != null) {
             try {
-                btSocket.getOutputStream().write("LEFT".toString().getBytes());
+                btSocket.getOutputStream().write(2);
             } catch (IOException e) {
                 msg("Error");
             }
@@ -128,7 +138,7 @@ public class MainControl extends Activity {
     private void turnRight() {
         if (btSocket != null) {
             try {
-                btSocket.getOutputStream().write("RIGHT".toString().getBytes());
+                btSocket.getOutputStream().write(3);
             } catch (IOException e) {
                 msg("Error");
             }
@@ -140,10 +150,22 @@ public class MainControl extends Activity {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
-    private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        Disconnect();
+//    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(CONNECTION, connectBT);
+    }
+
+    private class ConnectBT extends AsyncTask<Void, Void, Void> implements Serializable // UI thread
     {
         private boolean ConnectSuccess = true; //if it's here, it's almost connected
-
+        BluetoothSocket socket = null;
         @Override
         protected void onPreExecute() {
             progress = ProgressDialog.show(MainControl.this, "Connecting...", "Please wait!!!");  //show a progress dialog
@@ -157,6 +179,7 @@ public class MainControl extends Activity {
                     myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
                     BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
                     btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                    socket = btSocket;
                     BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                     btSocket.connect();//start connection
                 }

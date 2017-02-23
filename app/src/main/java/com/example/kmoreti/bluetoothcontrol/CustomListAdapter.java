@@ -44,7 +44,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         {
             text.setTextColor(Color.WHITE);
             text.setText(items.get(position));
-            text.setBackgroundColor(Color.parseColor("#00695C"));
+            text.setBackgroundColor(Color.parseColor("#03A9F4"));
             text.setTextSize(14);
         }
 

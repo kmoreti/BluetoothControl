@@ -11,35 +11,24 @@
     android:background="@color/colorBody"
     tools:context="com.example.kmoreti.bluetoothcontrol.MainControl">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bluetooth Control"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        tools:ignore="RtlHardcoded" />
-
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/buttonDisconnect"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/round_button"
-        android:drawableBottom="@drawable/disconnect"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/hexbugland"
+            android:scaleType = "fitCenter"/>
+    </FrameLayout>
 
     <Button
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:id="@+id/buttonDown"
+        android:id="@+id/buttonDisconnect"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/round_button"
-        android:drawableBottom="@drawable/down"
-        android:layout_marginTop="60dp"
-        android:layout_below="@+id/buttonDisconnect"
-        android:layout_alignEnd="@+id/textView2"
-        android:layout_marginEnd="10dp" />
+        android:drawableTop="@drawable/disconnect"/>
 
     <Button
         android:layout_width="80dp"
@@ -59,8 +48,7 @@
         android:drawableBottom="@drawable/right"
         android:layout_alignBaseline="@+id/buttonLeft"
         android:layout_alignBottom="@+id/buttonLeft"
-        android:layout_alignStart="@+id/buttonDisconnect"
-        android:layout_marginStart="9dp" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="80dp"
@@ -68,9 +56,20 @@
         android:id="@+id/buttonLeft"
         android:background="@drawable/round_button"
         android:drawableBottom="@drawable/left"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="33dp"
         android:layout_alignBaseline="@+id/buttonDown"
         android:layout_alignBottom="@+id/buttonDown"
-        android:layout_toStartOf="@+id/buttonDisconnect" />
+        android:layout_toStartOf="@+id/buttonRight" />
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/buttonDown"
+        android:background="@drawable/round_button"
+        android:drawableBottom="@drawable/down"
+        android:layout_marginBottom="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

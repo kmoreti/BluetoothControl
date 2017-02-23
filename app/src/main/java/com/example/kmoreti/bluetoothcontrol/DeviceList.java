@@ -23,6 +23,8 @@ public class DeviceList extends Activity {
     //widgets
     Button btnPaired;
     ListView devicelist;
+    String device;
+    String address;
     //Bluetooth
     private BluetoothAdapter myBluetooth = null;
     private Set<BluetoothDevice> pairedDevices;
@@ -43,7 +45,7 @@ public class DeviceList extends Activity {
 
         if (myBluetooth == null) {
             //Show a mensag. that the device has no bluetooth adapter
-            Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Bluetooth Device Not Available.", Toast.LENGTH_LONG).show();
 
             //finish apk
             finish();
@@ -56,10 +58,38 @@ public class DeviceList extends Activity {
         btnPaired.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pairedDevicesList();
+//                pairedDevicesList();
+                connect();
             }
         });
 
+    }
+
+    private void connect() {
+        pairedDevices = myBluetooth.getBondedDevices();
+
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice bt : pairedDevices) {
+                if (bt.getName().contains("HB01")) {
+                    device = bt.getName();
+                    address = bt.getAddress();
+                }
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
+        }
+
+        if (address != null && !address.trim().equals("")) {
+            // Make an intent to start next activity.
+            Intent i = new Intent(DeviceList.this, MainControl.class);
+
+            //Change the activity.
+            i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
+            startActivity(i);
+        } else {
+            Toast.makeText(getApplicationContext(), "Couldn't automatically connect to HC bluetooth device. Please select one available.", Toast.LENGTH_LONG).show();
+            pairedDevicesList();
+        }
     }
 
     private void pairedDevicesList() {
@@ -74,12 +104,9 @@ public class DeviceList extends Activity {
             Toast.makeText(getApplicationContext(), "No Paired Bluetooth Devices Found.", Toast.LENGTH_LONG).show();
         }
 
-//        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
-
-        ArrayAdapter listAdapter = new CustomListAdapter(DeviceList.this , R.layout.custom_list , list);
+        ArrayAdapter listAdapter = new CustomListAdapter(DeviceList.this, R.layout.custom_list, list);
         devicelist.setAdapter(listAdapter);
 
-//        devicelist.setAdapter(adapter);
         devicelist.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
 
     }
@@ -88,7 +115,7 @@ public class DeviceList extends Activity {
         public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
             // Get the device MAC address, the last 17 chars in the View
             String info = ((TextView) v.findViewById(R.id.textView)).getText().toString();
-            String address = info.substring(info.length() - 17);
+            address = info.substring(info.length() - 17);
 
             // Make an intent to start next activity.
             Intent i = new Intent(DeviceList.this, MainControl.class);
@@ -98,27 +125,4 @@ public class DeviceList extends Activity {
             startActivity(i);
         }
     };
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_device_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
