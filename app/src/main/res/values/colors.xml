@@ -6,10 +6,13 @@
     <!--<color name="colorBar">#00695C</color>-->
     <!--<color name="colorBody">#00796B</color>-->
     <!--<color name="colorText">#FFFFFF</color>-->
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorTop">#0D47A1</color>
-    <color name="colorBar">#0D47A1</color>
-    <color name="colorBody">#BBDEFB</color>
-    <color name="colorText">#FFFFFF</color>
+
+    <color name="primary">#673AB7</color>
+    <color name="primary_dark">#512DA8</color>
+    <color name="primary_light">#D1C4E9</color>
+    <color name="accent">#4CAF50</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
 </resources>
